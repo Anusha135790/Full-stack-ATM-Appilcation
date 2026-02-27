@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="box">
+        <h2>Login</h2>
+
+        {% if msg %}
+            <p class="error">{{ msg }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <input type="text" name="username" placeholder="Account Number" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+</body>
+</html>

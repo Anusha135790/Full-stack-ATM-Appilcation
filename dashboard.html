@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Dashboard</h2>
+
+    <ul>
+        <li><a href="{{ url_for('balance') }}">Check Balance</a></li>
+        <li><a href="{{ url_for('withdraw') }}">Withdraw</a></li>
+        <li><a href="{{ url_for('deposite') }}">Deposite</a></li>
+        <li><a href="{{ url_for('transfer') }}">Transfer</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+</body>
+</html>

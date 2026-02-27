@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Withdraw</title>
+</head>
+<body>
+    <h2>Withdraw Amount</h2>
+
+    {% if msg %}
+        <p style="color:green;">{{ msg }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <label>Enter Amount:</label><br>
+        <input type="number" name="amount" required><br><br>
+
+        <button type="submit">Withdraw</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back</a>
+</body>
+</html>

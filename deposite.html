@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>deposite Money</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+        }
+        input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        p {
+            font-weight: bold;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>deposite Money</h2>
+
+    <!-- Message display -->
+    {% if msg %}
+        <p style="color:green;">{{ msg }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <label>Enter Amount:</label><br>
+        <input type="number" name="amount" placeholder="Enter amount to deposite" required><br>
+
+        <button type="submit">deposite</button>
+    </form>
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</body>
+</html>
