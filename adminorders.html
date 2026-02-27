@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Orders</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#111; color:#eee; }
+    .container { display:flex; min-height:100vh; }
+    .sidebar {
+      width:220px; background:#1a1a1a; padding:20px 0;
+      border-right:1px solid #333;
+    }
+    .sidebar a {
+      display:block; padding:12px 24px; color:#ccc; text-decoration:none;
+    }
+    .sidebar a:hover, .sidebar a.active { background:#333; color:white; }
+    .main { flex:1; padding:24px; }
+    .header { font-size:1.4rem; margin-bottom:24px; }
+    .top-filters {
+      display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px;
+    }
+    .top-filters input, .top-filters select {
+      padding:10px; background:#222; border:1px solid #444; color:white; border-radius:4px;
+    }
+    .btn { padding:10px 16px; background:#0066cc; border:none; color:white; border-radius:4px; cursor:pointer; }
+    .btn.reset { background:#444; }
+    .summary-card {
+      background:#1e1e1e; padding:20px; border-radius:8px; margin-bottom:24px;
+      border:1px solid #333;
+    }
+    .table-container {
+      background:#1e1e1e; border-radius:8px; overflow:hidden; border:1px solid #333;
+    }
+    table {
+      width:100%; border-collapse:collapse; color:#ddd;
+    }
+    th, td { padding:14px 16px; text-align:left; border-bottom:1px solid #333; }
+    th { background:#252525; }
+    .status {
+      padding:6px 12px; border-radius:12px; font-size:0.85rem; font-weight:bold;
+    }
+    .completed { background:#2e7d32; color:white; }
+    .pending   { background:#f57c00; color:white; }
+    .action-btn {
+      background:#0066cc; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;
+    }
+    .pagination {
+      padding:16px; text-align:center; color:#aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <div style="padding:16px 24px; font-size:1.3rem; font-weight:bold; color:#fff;">Admin Panel</div>
+    <a href="#">Products</a>
+    <a href="#">Add Product</a>
+    <a href="#">Delete Product</a>
+    <a href="#" class="active">Orders</a>
+    <a href="#">Profile</a>
+    <a href="#">Settings</a>
+    <a href="#">Logout</a>
+  </div>
+
+  <div class="main">
+    <div class="header">Orders</div>
+
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+      <div style="flex:1; min-width:300px;">
+        <div class="top-filters">
+          <input type="text" name="orderid"placeholder="Search by Order ID"/>
+          <input type="text"name="productname" placeholder="Search by Product Name"/>
+
+          <input type ="date" name="fromdate">
+          <input type ="date" name="todate">
+
+          <br><br>
+          <select><option>Status</option></select>
+          <button type="submit"class="btn btn-primary">filter</button> 
+          <a href="/admin/orders" class="btn btn-Reset">Reset</a>
+        </div>
+
+        <div class="summary-card">
+          <strong>Order Summary</strong><br><br>
+          Total Orders: {{ totalOrders }}<br>
+          Filtered Orders: 18
+        </div>
+      </div>
+
+      <!-- right side summary can be placed here if needed -->
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Product</th>
+            <th>Customer</th>
+            <th>Order Date</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for oder in orders %}
+          <tr>
+            <td>{{oder.ORDER_ID}}</td>
+            <td>{{order.product_name}}</td>
+            <td>####</td>
+            <td>{{order."CREATED_ID}}"</td>
+            <td>{{oder.total_price}}</td>
+            <td><span class="status completed"> {{oder.ORDER_STATUS}}</span></td>
+            <td> class="actions">
+                <a href="#" class="view">view</a>
+                <a herf= # class="more">:</a>
+            </td>
+            </tr>
+            {% endfor %}
+            <td>#1054</td>
+            <td>Mark Wilson</td>
+            <td>2026-02-15</td>
+            <td>$690.00</td>
+            <td><span class="status pending">Pending</span></td>
+            <td><button class="action-btn">View</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        Showing 1 to 2 of 120 entries &nbsp; Prev 1 2 3 Next
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2> style="text-agiln: center;background-color:burlywood"></h2>
+    <hr>
+    <div>
+    <form>method = 'POST' action = "{{url_for('register')}}"</form>
+        <label>username</label>
+        <input type ="text" name ="username" class="formdata"><br>
+        <label>password</label>
+        <input type = "password" name="password" class="formdata"><br>
+        <button type="submit">submit</button>
+        </form>
+    </div>
+    <p> dont have account?<a href="{{url_for('register')}}"></a></p>
+    <p>dont know password? <a href="{{url_for('forgotpassword')}}"></a></p>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f6f9;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-add { background-color: green; }
+        .btn-filter { background-color: #007bff; }
+        .btn-reset { background-color: #6c757d; }
+        .btn-edit { background-color: #007bff; }
+        .btn-delete { background-color: red; }
+
+        /* Filter box */
+        .filter-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 6px;
+        }
+
+        .filter-box input,
+        .filter-box select {
+            padding: 6px;
+            margin-right: 10px;
+        }
+
+        /* Card grid */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 15px;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .no-img {
+            height: 160px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            color: #777;
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 4px 0;
+            font-size: 14px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .stock {
+            font-size: 13px;
+        }
+
+        .active { color: green; font-weight: bold; }
+        .inactive { color: red; font-weight: bold; }
+
+        .card-actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Admin - Product Management</h2>
+
+<a href="/admin/addproduct" class="btn btn-add">➕ Add Product</a>
+
+<!-- FILTER SECTION -->
+<form method="GET" class="filter-box">
+    <input type="text" name="name" placeholder="Product Name"
+           value="{{ request.args.get('name','') }}">
+
+    <select name="category">
+        <option value="">All Categories</option>
+        {% for cat in categories %}
+        <option value="{{ cat }}"
+            {% if request.args.get('category') == cat %}selected{% endif %}>
+            {{ cat }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <select name="status">
+        <option value="">All Status</option>
+        <option value="1" {% if request.args.get('status') == '1' %}selected{% endif %}>Active</option>
+        <option value="0" {% if request.args.get('status') == '0' %}selected{% endif %}>Inactive</option>
+    </select>
+
+    <button type="submit" class="btn btn-filter">Filter</button>
+    <a href="/admin/products" class="btn btn-reset">Reset</a>
+</form>
+
+<!-- PRODUCTS AS CARDS -->
+<div class="card-container">
+    {% if products %}
+        {% for p in products %}
+        <div class="card">
+            {% if p.image %}
+                <img src="{{ url_for('static', filename=p.image) }}">
+            {% else %}
+                <div class="no-img">No Image</div>
+            {% endif %}
+
+            <h3>{{ p.NAME }}</h3>
+            <p>Category: {{ p.category }}</p>
+            <p class="price">₹{{ p.PRICE }}</p>
+            <p class="stock">Stock: {{ p.STOCK }}</p>
+
+            <p>
+                Status:
+                {% if p.ACTIVE == '1' %}
+                    <span class="active">Active</span>
+                {% else %}
+                    <span class="inactive">Inactive</span>
+                {% endif %}
+            </p>
+
+            <div class="card-actions">
+                <a href="/admin/editproduct/{{ p.PRODUCTID }}" class="btn btn-edit">
+                    Edit
+                </a>
+
+                {% if p.ACTIVE == '1' %}
+                    <a href="/admin/toggleproduct/{{ p.PRODUCTID }}/0"
+                    class="btn btn-delete"
+                    onclick="return confirm('Deactivate this product?')">
+                    Deactivate
+                    </a>
+                {% else %}
+                    <a href="/admin/toggleproduct/{{ p.PRODUCTID }}/1"
+                    class="btn btn-add"
+                    onclick="return confirm('Activate this product?')">
+                    Activate
+                    </a>
+                {% endif %}
+            </div>
+
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No products found</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
