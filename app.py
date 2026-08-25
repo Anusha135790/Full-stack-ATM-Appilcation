@@ -15,7 +15,7 @@ accounts = {
 amounts = {
     1234:1000,
     1235:2000,
-    1236:4000
+    1236:5000
 
 }
 @app.route('/login', methods=['GET','POST'])
